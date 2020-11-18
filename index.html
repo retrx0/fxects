@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <title>FXects</title>
+</head>
+
+<body>
+<div class="top wave-container">
+    <h1 class="title">FXects</h1>
+    <svg style="z-index: -1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 210" >
+        <path fill="#fff" fill-opacity="1"
+              d="M0,128L120,144C240,160,480,192,720,186.7C960,181,1200,139,1320,117.3L1440,96L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z">
+        </path>
+    </svg>
+</div>
+<div class="container">
+    <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-shadow-home" role="tab"
+               aria-controls="pills-shadow-home" aria-selected="true">Shadow</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-gradient-home" role="tab"
+               aria-controls="pills-gradient-home" aria-selected="false">Colors</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-background-home" role="tab"
+               aria-controls="pills-background-home" aria-selected="false">Gradient</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active shadow-sec" id="pills-shadow-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <select class="form-control" id="shadow-type-select">
+                            <option value="1" id="box-shadow-select">Box Shadow</option>
+                            <option value="2" id="drop-shadow-select">Drop Shadow</option>
+                            <option value="3" id="inner-shadow-select">Inner Shadow</option>
+                        </select>
+<!--                        <div class="col">-->
+<!--                            <button class="btn btn-primary btn-raised" id="reset-btn" type="reset" style="float: right">-->
+<!--                                <i class="fas fa-redo"></i>Reset-->
+<!--                            </button>-->
+<!--                        </div>-->
+                        <div style="padding-top: 20px;padding-bottom: 10px">
+                            <div class="row">
+                                <div class="input-group col">
+                                    <div class="input-group-prepend"><span class="input-group-text" for="shadow-color">Shadow Color:</span></div>
+                                    <div class="input-group-append"><input type="color" id="shadow-color" name="shadow-color" value="#c5c5c5"></div>
+                                </div>
+                                <div class="input-group col">
+                                    <div class="input-group-prepend"><span class="input-group-text" for="shadow-model-bg-color">Background Color:</span></div>
+                                    <div class="input-group-append"><input type="color" id="shadow-model-bg-color" name="Background-color" value="#c5c5c5"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <output class="res-output" id="x-res"></output>
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="x-slider">
+                        <output class="res-output" id="y-res"></output>
+                        <input type="range" min="-100" max="100" value="25" class="slider" id="y-slider">
+                        <output class="res-output" id="blur-rad-res"></output>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="blur-radius-slider">
+                        <output class="res-output" id="insets-res"></output>
+                        <input type="range" min="-50" max="50" value="-10" class="slider" id="insets-slider">
+                        <h6>JavaFX blur type</h6>
+                        <select class="form-control" id="blur-type-select">
+                            <option value="1" id="gaussian-select">Gaussian</option>
+                            <option value="2" id="one-pass-select">One-Pass-Box</option>
+                            <option value="3" id="two-pass-select">Two-Pass-Box</option>
+                            <option value="4" id="three-pass-select">Three-Pass-Box</option>
+                        </select>
+                        <br>
+                    </div>
+                    <div class="col-sm" style="text-align: center">
+                        <div class="model-shadow center" id="model-shadow"></div>
+                        <div id="alert-area-2">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Warning!</strong> Blur radius is greater than JavaFX maximum, the displayed
+                                shadow will only work with CSS.
+                                For best shadow effect box shadow is highly recommended.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="output-area col-sm" id="output-area">
+                        <h6 class="primary">JAVA FX </h6>
+                        <pre id="shadow-output-code-fx" title="Code"></pre>
+                        <span class="copy-to-clipboard" onclick="CopyToClipboard('shadow-output-code-fx')">copy to clipboard <i class="far fa-copy"></i></span>
+                    </div>
+                    <div class="output-area col-sm">
+                        <h6 class="primary">CSS </h6>
+                        <pre id="shadow-output-code-css" title="Code"></pre>
+                        <span class="copy-to-clipboard" onclick="CopyToClipboard('shadow-output-code-css')">copy to clipboard <i class="far fa-copy"></i></span>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="container-fluid down">
+                <p>Creating shadow effect made easier and faster.</p>
+                <p>JavaFx and CSS shadow tool of different types. Box shadow, drop shadow and inner shadow.</p>
+            </div>
+        </div>
+        <div class="tab-pane fade color-sec" id="pills-gradient-home" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-field">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="hex-color-input">hex </label>
+                                </div>
+                                <input type="text" height="100" width="50" id="hex-color-input" maxlength="7" value="#1F76F9">
+                                <div class="input-group-append">
+                                    <input id="shades-color" type="color">
+                                </div>
+                            </div>
+                            <div class="rgb-input row">
+                                <span class="input-group">
+                                    <span class="input-group-prepend">
+                                        <label class="input-group-text" for="r-input">R</label>
+                                    </span>
+                                    <span class="input-group-append">
+                                        <input type="number" height="100" width="50" id="r-input" value="0" min="0" max="255" maxlength="3">
+                                    </span>
+                                </span>
+                                <span class="input-group">
+                                    <span class="input-group-prepend">
+                                        <label class="input-group-text" for="g-input">G</label>
+                                    </span>
+                                    <span class="input-group-append">
+                                        <input type="number" height="100" width="50" id="g-input"
+                                               value="98" min="0" max="255" maxlength="3">
+                                    </span>
+                                </span>
+                                <span class="input-group">
+                                    <span class="input-group-prepend">
+                                        <label class="input-group-text" for="b-input">B</label>
+                                    </span>
+                                    <span class="input-group-append">
+                                        <input type="number" height="100" width="50" id="b-input"
+                                               value="255" min="0" max="255" maxlength="3">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="model-colors center" id="color-display"></div>
+                    </div>
+                </div>
+                    <br>
+                    <div class="container">
+                        <h5>Shades</h5>
+                        <div class="row">
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-1"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-2"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-3"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-4"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-5"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-6"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-7"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-8"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-9"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-10"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-11"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-12"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-13"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-14"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 shade-box" id="shade-15"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h5>Tints</h5>
+                        <div class="row">
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-1"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-2"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-3"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-4"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-5"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-6"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-7"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-8"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-9"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-10"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-11"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-12"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-13"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-14"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 tint-box" id="tint-15"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h5>Hues</h5>
+                        <div class="row">
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-1"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-2"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-3"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-4"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-5"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-6"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-7"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-8"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-9"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-10"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-11"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-12"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-13"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-14"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-15"></div>
+                            <div class="col-lg col-md-3 col-sm-4 col-4 hue-box" id="hue-16"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h5>Complementary</h5>
+                        <div class="row">
+                            <div class="col-lg col-md-2 col-sm col complementary-box" id="complement-1"></div>
+                            <div class="col-lg col-md-2 col-sm col complementary-box" id="complement-2"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="color-output-area">
+                        <h6>Background</h6>
+                        <div class="row">
+                            <div class="col-sm output-area">
+                                <h6>Java FX</h6>
+                                <pre id="color-background-output-javafx"></pre>
+                                <span class="copy-to-clipboard" onclick="CopyToClipboard('color-background-output-javafx')">copy to clipboard <i class="far fa-copy"></i></span>
+                            </div>
+                            <div class="col-sm output-area">
+                                <h6>CSS</h6>
+                                <pre id="color-background-output-css"></pre>
+                                <span class="copy-to-clipboard" onclick="CopyToClipboard('color-background-output-css')">copy to clipboard <i class="far fa-copy"></i></span>
+                            </div>
+                        </div>
+                        <br>
+                        <h6>Text color</h6>
+                        <div class="row">
+                            <div class="col-sm output-area">
+                                <h6>Java FX</h6>
+                                <pre id="color-text-fill-output-javafx"></pre>
+                                <span class="copy-to-clipboard" onclick="CopyToClipboard('color-text-fill-output-javafx')">copy to clipboard <i class="far fa-copy"></i></span>
+                            </div>
+                            <div class="col-sm output-area">
+                                <h6>CSS</h6>
+                                <pre id="color-text-fill-output-css"></pre>
+                                <span class="copy-to-clipboard" onclick="CopyToClipboard('color-text-fill-output-css')">copy to clipboard <i class="far fa-copy"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                <div class="container-fluid down">
+                    <p>JavaFx and CSS backgrounds and text fill with different shades, tints and hue.</p>
+                </div>
+                <br>
+                </div>
+            </div>
+        <div class="tab-pane fade gradient-sec" id="pills-background-home" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="container" style="min-height: 200px">
+                    <div class="row">
+                        <div class="col-sm gradient-input">
+                            <div class="">
+                                <div class="row nodes">
+                                    <div class="node" style="background: #b621fe"></div>
+                                    <div class="node" style="background: #1F76F9"></div>
+                                    <div class="node" id="add-nodes" style="text-align: center;font-size: 1.5em"><i class="fas fa-plus center"></i></div>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <select class="form-control" id="gradient-type">
+                                    <option value="1" id="gradient-linear-select">Linear</option>
+                                    <option value="2" id="gradient-radial-select">Radial</option>
+                                </select>
+                                <br>
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><label class="input-group-text">Hex</label></div>
+                                    <div class="input-group-append">
+                                        <input type="text" height="100" width="50" id="gradient-hex-input" maxlength="7">
+                                        <input id="gradient-color-picker" type="color">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><label class="input-group-text">Position</label></div>
+                                    <div class="input-group-append">
+                                        <input type="number" class="" id="position-input">
+                                        <label class="input-group-text">%</label>
+                                        <input type="range" min="0" max="100" value="0" class="slider" id="position-slider">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><label class="input-group-text">Degrees</label></div>
+                                    <div class="input-group-append">
+                                        <input type="number" class="" id="degree-input">
+                                        <label class="input-group-text"><sup>o</sup></label>
+                                        <input type="range" min="0" max="360" value="135" class="slider" id="degree-slider">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="model-gradient center" id="gradient-model"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm output-area">
+                            <h6>JAVA FX</h6>
+                            <pre id="gradient-output-code-javafx"></pre>
+                            <span class="copy-to-clipboard" onclick="CopyToClipboard('gradient-output-code-javafx')">copy to clipboard <i class="far fa-copy"></i></span>
+                        </div>
+                        <div class="col-sm output-area">
+                            <h6>CSS</h6>
+                            <pre id="gradient-output-code-css"></pre>
+                            <span class="copy-to-clipboard" onclick="CopyToClipboard('gradient-output-code-css')">copy to clipboard <i class="far fa-copy"></i></span>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <br>
+                <div class="container-fluid down">
+                    <p>JavaFx and CSS gradient generator</p>
+                    <p>Create awesome JavaFx and CSS gradients very fast and easy</p>
+                </div>
+            </div>
+    </div>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 280">
+    <path fill="#F5F9FF" fill-opacity="1" d="M0,128L18.5,106.7C36.9,85,74,43,111,37.3C147.7,32,185,64,222,96C258.5,128,295,160,332,197.3C369.2,235,406,277,443,277.3C480,277,517,235,554,192C590.8,149,628,107,665,112C701.5,117,738,171,775,170.7C812.3,171,849,117,886,106.7C923.1,96,960,128,997,144C1033.8,160,1071,160,1108,170.7C1144.6,181,1182,203,1218,186.7C1255.4,171,1292,117,1329,101.3C1366.2,85,1403,107,1422,117.3L1440,128L1440,320L1421.5,320C1403.1,320,1366,320,1329,320C1292.3,320,1255,320,1218,320C1181.5,320,1145,320,1108,320C1070.8,320,1034,320,997,320C960,320,923,320,886,320C849.2,320,812,320,775,320C738.5,320,702,320,665,320C627.7,320,591,320,554,320C516.9,320,480,320,443,320C406.2,320,369,320,332,320C295.4,320,258,320,222,320C184.6,320,148,320,111,320C73.8,320,37,320,18,320L0,320Z"></path>
+</svg>
+<div class="container-fluid">
+    <div class="row" style="font-size: 1.2em;background: #F7F7FF">
+        <div class="col-sm">
+            <p style="text-align: center">Not finding what you want or just want more, feel free to contact us through
+                <a href="mailto:abdulrahmaniliyasu86@gmail.com?Subject=FXects Page Viewer&body=www.fxects.com" target="_top">email</a>, your feedback
+            is highly appreciated.</p>
+        </div>
+        <div class="col-sm" style="text-align: center">
+            <p>Made with love by </p>
+            <h4 class="heading-1" style="font-size: 2em">Abdul Illo</h4>
+        </div>
+    </div>
+</div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+    <script src="shadow-script.js"></script>
+    <script src="gradient-script.js"></script>
+    <script src="bundle.js"></script>
+</body>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 280" style="background: #F7F7FF">
+    <path fill="#1F76F9" fill-opacity="1" d="M0,128L30,138.7C60,149,120,171,180,149.3C240,128,300,64,360,80C420,96,480,192,540,229.3C600,267,660,245,720,213.3C780,181,840,139,900,144C960,149,1020,203,1080,192C1140,181,1200,107,1260,80C1320,53,1380,75,1410,85.3L1440,96L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path>
+</svg>
+<footer class="footer container-fluid">
+    <div class="row">
+        <div class="col-md col-sm col-xs-4" style="text-align: left;">
+            <h5>FXects.com</h5>
+            <br>
+            Copyright &copy; 2020 All Rights Reserved by <a href="#" style="color: #fff;"><i>fxects.com</i></a> &#9825;.
+        </div>
+        <div class="col-sm">
+            <h5>Support</h5>
+                <a href="https://paypal.me/supportillo" style="color: white">Paypal</a>
+        </div>
+        <div class="col-md col-sm col-xs-4 si" style="text-align: center">
+            <h6>Share</h6>
+            <ul class="social-icons">
+                <li><a class="facebook" href="https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Ffxects.com"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/intent/tweet/?text=FXects.com%20get%20javafx%20and%20css%20code%20very%20easy.&amp;url=http%3A%2F%2Ffxects.com" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                <li><a class="reddit" href="https://www.reddit.com"><i class="fab fa-reddit"></i></a></li>
+                <li><a class="whatsapp" href="#"><i class="fab fa-whatsapp"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <br>
+</footer>
+
+<span class="notify center animateOpen" id="notify">Copied</span>
+</html>

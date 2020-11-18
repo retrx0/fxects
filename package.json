@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "color": "^3.1.2",
+    "color-string": "latest"
+  }
+}

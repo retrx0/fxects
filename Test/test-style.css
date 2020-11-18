@@ -1,0 +1,8 @@
+
+.pane {
+    /*-fx-background-color: #ccdfff;*/
+    -fx-border-radius: 10px;
+    -fx-background-color: radial-gradient(radius 100%, rgb(68, 31, 255) 0%, rgb(147, 31, 255) 50%);
+    /*-fx-background-color: linear-gradient(to bottom, rgb(68, 31, 255) 0%, rgb(147, 31, 255) 50%);*/
+    /*-fx-background-color: linear-gradient(to top, rgb(68, 31, 255) 0%, rgb(82, 30, 194) 20%, rgb(104, 30, 194) 40%, rgb(129, 30, 194) 60%, rgb(145, 30, 194) 80%, rgb(175, 30, 194) 100%);*/
+}
